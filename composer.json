@@ -1,0 +1,17 @@
+{
+    "name": "gabriel/desafio_revvo",
+    "description": "Meu projeto CRUD Cursos",
+    "type": "project",
+    "require": {
+        "ext-pdo": "*",
+        "php-di/php-di": "dev-master",
+        "symfony/dotenv": "symfony/dotenv"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Gabriel\\DesafioRevvo\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
