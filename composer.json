@@ -4,14 +4,14 @@
     "type": "project",
     "require": {
         "ext-pdo": "*",
-        "php-di/php-di": "6.4",
+        "php-di/php-di": "^7.0",
         "symfony/dotenv": "^6.3"
 
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Gabriel\\DesafioRevvo\\": "src/"
+            "App\\": "src/"
         }
     },
     "minimum-stability": "dev"

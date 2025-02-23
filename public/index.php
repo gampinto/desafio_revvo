@@ -1,18 +1,38 @@
 <?php
 
-declare(strict_types=1);
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
+use DI\ContainerBuilder;
 use Symfony\Component\Dotenv\Dotenv;
-use App\Connection\DatabaseConnection;
 
-$dotenv = new Dotenv();
-$dotenv->load(__DIR__ . '/../.env');
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
-try {
-    $dbConnection = DatabaseConnection::open(); 
-    echo "Conexão com o banco de dados foi estabelecida com sucesso!";
-} catch (Exception $e) {
-    echo "Erro ao conectar com o banco de dados: " . $e->getMessage();
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$routes = include dirname(__DIR__) . '/config/routes.php';
+
+(new Dotenv())->load(dirname(__DIR__) . '/.env');
+
+$url = explode('?', $_SERVER['REQUEST_URI'])[0];
+
+if (!isset($routes[$url])) {
+    http_response_code(404);
+    echo "Página não encontrada!";
+    exit;
 }
+
+$controller = $routes[$url]['controller'];
+$method = $routes[$url]['method'];
+
+$builder = new ContainerBuilder();
+$builder->addDefinitions(dirname(__DIR__) . '/config/config-di.php');
+$container = $builder->build();
+
+$controller = $container->get($controller);
+
+if (!method_exists($controller, $method)) {
+    http_response_code(500);
+    echo "Método não encontrado!";
+    exit;
+}
+
+$controller->$method();
