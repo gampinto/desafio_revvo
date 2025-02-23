@@ -4,8 +4,9 @@
     "type": "project",
     "require": {
         "ext-pdo": "*",
-        "php-di/php-di": "dev-master",
-        "symfony/dotenv": "symfony/dotenv"
+        "php-di/php-di": "6.4",
+        "symfony/dotenv": "^6.3"
+
     },
     "license": "MIT",
     "autoload": {
